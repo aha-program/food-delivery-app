@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/const.dart';
+import 'package:food_delivery/custom_alert_dialog/custom_alert.dart';
 import 'package:food_delivery/home_page/home_page.dart';
 import 'package:food_delivery/utils/custom_material_button.dart';
+import 'package:food_delivery/validation/sign_in_validation.dart';
+import 'package:provider/provider.dart';
 
-class RegistrationPage extends StatelessWidget {
+class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
 
   @override
+  _RegistrationPageState createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
+  _submitIndo() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  }
+
+  // !!!This method for authentication errors, not for validation...
+  _showErrorMessage() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            title: "Authentication error",
+            descriptions: "Invalid email address and password combination!",
+            text: "Ok",
+          );
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final validationService = Provider.of<SignInValidation>(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -79,7 +110,10 @@ class RegistrationPage extends StatelessWidget {
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
+                        errorText: validationService.emailAddress.error,
                       ),
+                      onChanged: (value) =>
+                          validationService.changeEmailAddress(value),
                     ),
                     const SizedBox(
                       height: 48,
@@ -94,7 +128,10 @@ class RegistrationPage extends StatelessWidget {
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
+                        errorText: validationService.password.error,
                       ),
+                      onChanged: (value) =>
+                          validationService.changePassword(value),
                     ),
                     const SizedBox(
                       height: 38,
@@ -110,14 +147,9 @@ class RegistrationPage extends StatelessWidget {
                       height: 90,
                     ),
                     CustomMaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                        );
-                      },
+                      onPressed: (!validationService.isValid)
+                          ? _showErrorMessage
+                          : _submitIndo,
                       title: "Login",
                     ),
                   ],
