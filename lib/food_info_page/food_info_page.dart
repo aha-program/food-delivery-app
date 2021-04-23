@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/cart_page/cart_page.dart';
 import 'package:food_delivery/const.dart';
 import 'package:food_delivery/utils/custom_material_button.dart';
 
@@ -127,7 +128,13 @@ class FoodInfoPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: CustomMaterialButton(
                 title: "Add to Cart",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartPage(),
+                      ));
+                },
               ),
             ),
           ],

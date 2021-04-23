@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:food_delivery/const.dart';
 import 'package:food_delivery/home_page/widgets/fake_data.dart';
-import 'package:food_delivery/home_page/widgets/food_card.dart';
 import 'package:food_delivery/search_page/small_food_card.dart';
 
 class SearchPage extends StatelessWidget {
@@ -78,7 +77,7 @@ class SearchPage extends StatelessWidget {
                   addRepaintBoundaries: true,
                   shrinkWrap: true,
                   staggeredTileBuilder: (index) {
-                    return StaggeredTile.count(1, 1.8);
+                    return StaggeredTile.count(1, 2);
                   },
                 ),
               ),

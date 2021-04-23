@@ -42,7 +42,7 @@ class SmallFoodCard extends StatelessWidget {
                 )
               : Container(),
           Container(
-            height: MediaQuery.of(context).size.height / 2.8,
+            height: MediaQuery.of(context).size.height / 2.4,
             // width: MediaQuery.of(context).size.width * 0.6,
             margin: const EdgeInsets.symmetric(
               horizontal: 15,
